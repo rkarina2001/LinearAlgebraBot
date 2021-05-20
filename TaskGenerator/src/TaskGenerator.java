@@ -8,6 +8,50 @@ public class TaskGenerator {
     final int DET = 3;
     MatrixAllFunc m;
 
+    public void Training(int task) { //Основная функция обработки операций
+        double[][] A, B;
+        if (task == SUM) {
+            int n = (int) (2 + Math.random() * 3);
+            A = MatrixGenerator(n, n);
+            B = MatrixGenerator(n, n);
+            m = new MatrixAllFunc(A, B);
+            MatrixOutput(A, false);
+            System.out.print("\n+");
+            MatrixOutput(B, true);
+            System.out.print("\nInput result:\n");
+            System.out.print(Compare(m.sum(A, B), false));
+        } else if (task == SUB) {
+            int n = (int) (2 + Math.random() * 3);
+            A = MatrixGenerator(n, n);
+            B = MatrixGenerator(n, n);
+            m = new MatrixAllFunc(A, B);
+            MatrixOutput(A, false);
+            System.out.print("\n-");
+            MatrixOutput(B, true);
+            System.out.print("\nInput result:\n");
+            System.out.print(Compare(m.sub(A, B), false));
+        } else if (task == MUL) {
+            int n = (int) (2 + Math.random() * 2);
+            int k = (int) (2 + Math.random() * 2);
+            A = MatrixGenerator(k, n);
+            k = (int) (2 + Math.random() * 2);
+            B = MatrixGenerator(n, k);
+            m = new MatrixAllFunc(A, B);
+            MulOutput(A);
+            System.out.print("*\n");
+            MulOutput(B);
+            System.out.print("Input result:\n");
+            System.out.print(Compare(m.mul(A, B), true));
+        } else if (task == DET) {
+            int n = (int) (2 + Math.random() * 3);
+            A = MatrixGenerator(n, n);
+            m = new MatrixAllFunc(A, A);
+            MatrixOutput(A, false);
+            System.out.print("\nInput result:\n");
+            System.out.print(CompareDet(m.matrixDetetminant(A)));
+        }
+    }
+
     public String CompareDet(double a) { //Ввод определителя и его сравнение с результатом
         Scanner s = new Scanner(System.in);
         double b;
@@ -89,5 +133,9 @@ public class TaskGenerator {
                 System.out.printf("%1$-3s", (int) A[j][i]);
             }
         }
+    }
+
+    public static void main(String[] args) { //Для отладки
+        new TaskGenerator().Training(new Scanner(System.in).nextInt());
     }
 }
